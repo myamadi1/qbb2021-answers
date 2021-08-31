@@ -19,3 +19,9 @@ for line in ctab:
         print(gene_name, value)
         parsed[8]=value
         print(parsed)
+    else:
+        if len(sys.argv) == 4:
+            parsed[8] = sys.argv[3]
+            print(parsed)
+        else:
+            continue
