@@ -69,15 +69,15 @@ def kmerize(sequence, kmer_len):
 query_kmers = (kmerize(query_dna, kmer_len))
 
 for tseq in t_fasta_list:
-    target_name = t_fasta_list[0]
-    target_dna = t_fasta_list[1]
+    target_name = tseq[0]
+    target_dna = tseq[1]
     target_kmers = kmerize(target_dna, kmer_len)
     #for q_kmer, q_pos in query_kmers.items()
     for q_kmer in query_kmers:
         q_pos = query_kmers[q_kmer]
         if q_kmer in target_kmers: 
-            print(target_name, t_kmers[q_kmer], q_pos)
-        
+            print(target_name,target_kmers[q_kmer], q_pos)
+          
     
     
 
