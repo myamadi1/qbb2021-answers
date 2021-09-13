@@ -12,16 +12,15 @@ for line in flymap:
 ctab = open(sys.argv[2], 'r')
 for line in ctab:
     parsed = line.strip().split('\t')
-    print(parsed)
+    print('\t'.join(parsed))
     gene_name = parsed[8]
     if gene_name in flydict:
         value = flydict[gene_name]
-        print(gene_name, value)
         parsed[8]=value
-        print(parsed)
+        print('\t'.join(parsed))
     else:
         if len(sys.argv) == 4:
             parsed[8] = sys.argv[3]
-            print(parsed)
+            print('\t'.join(parsed))
         else:
             continue
