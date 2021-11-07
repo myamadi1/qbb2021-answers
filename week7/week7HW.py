@@ -95,7 +95,7 @@ for j in range(seq2_len+1):
 #Populating the matrices
 
 for i in range(1, len(seq1) + 1):
-    for j in range(1, len(seq1) + 1):
+    for j in range(1, len(seq2) + 1):
         d = F_matrix[i-1, j-1] + matrix.loc[seq1[i-1], seq2[j-1]]
         h = F_matrix[i, j-1] + gap_penalty
         v = F_matrix[i-1, j] + gap_penalty
@@ -121,35 +121,48 @@ i, j = (len(seq1), len(seq2))
 align1 = ''
 align2 = ''
 
-while i > 0 and j > 0: 
+gap1_count = 0
+gap2_count = 0
+
+while i >= 1 and j >= 1: 
     if TB_matrix[i,j] == 'd':
-        align1 += seq1[i-1]
+        align1 += seq1[i-1] 
         align2 += seq2[j-1]
-        i, j = i-1, j-1
-        continue
-    if TB_matrix[i,j] == 'h':
+        i = i - 1
+        j = j - 1
+    elif TB_matrix[i,j] == 'h':
         align1 += seq1[i-1]
         align2 += '-'
-        i, j = i, j-1
-        continue
-    if TB_matrix[i,j] == 'v':
+        i = i - 1
+        gap2_count += 1
+    elif TB_matrix[i,j] == 'v':
         align1 += '-'
         align2 += seq2[j-1]
-        i, j = i-1, j
-        continue
-
-c = a[::-1]
-d = b[::-1]
-
-gap1count = c.count('-')
-gap2count = d.count('-')
+        j = j - 1
+        gap1_count += 1
+    else:
+        break
 
 
-#Generate output
-
-output = open(path, 'w')
-output.write('Alignment 1: '.format(c))
-output.write('Alignment 2: '.format(d))
-output.write('Gaps in sequence 1: '.format(gap1count))
-output.write('Gaps in sequence 2: '.format(gap2count))
-output.close
+print(align1)
+print(align2)
+print("Gaps in sequence 1: ", gap1_count)
+print("Gaps in seqnece 2: ", gap2_count)
+# gap1count = c.count('-')
+# gap2count = d.count('-')
+#
+#
+# #Generate output
+#
+# output1= open(path,'w')
+# output1.write('Align 1:\t{}\n'.format(c))
+# output1.write('Align 1:\t{}\n'.format(d))
+# output1.close()
+#
+# output2= open(path,'w')
+# output2.write('Align 1:\t{}\n'.format(c))
+# output2.write('Align 1:\t{}\n'.format(d))
+# output2.close()
+#
+# print(gap1count)
+# print(gap2count)
