@@ -133,36 +133,35 @@ while i >= 1 and j >= 1:
     elif TB_matrix[i,j] == 'h':
         align1 += seq1[i-1]
         align2 += '-'
-        i = i - 1
+        j = j - 1
         gap2_count += 1
     elif TB_matrix[i,j] == 'v':
         align1 += '-'
         align2 += seq2[j-1]
-        j = j - 1
+        i = i - 1
         gap1_count += 1
     else:
         break
 
+align1 = align1[::-1]
+align2 = align2[::-1]
 
-print(align1)
-print(align2)
-print("Gaps in sequence 1: ", gap1_count)
-print("Gaps in seqnece 2: ", gap2_count)
-# gap1count = c.count('-')
-# gap2count = d.count('-')
-#
-#
-# #Generate output
-#
-# output1= open(path,'w')
-# output1.write('Align 1:\t{}\n'.format(c))
-# output1.write('Align 1:\t{}\n'.format(d))
-# output1.close()
-#
-# output2= open(path,'w')
-# output2.write('Align 1:\t{}\n'.format(c))
-# output2.write('Align 1:\t{}\n'.format(d))
-# output2.close()
-#
-# print(gap1count)
-# print(gap2count)
+alignment_score = F_matrix[len(seq1), len(seq2)] + gap1_count + gap2_count
+
+output = open(path, "w")
+output.write("Sequence 1: ")
+output.write(align1)
+output.write("\n")
+output.write("Sequence 2: ")
+output.write(align2)
+output.write("\n")
+output.write("Number of gaps in sequence 1: ")
+output.write(str(gap1_count))
+output.write("\n")
+output.write("Number of gaps in sequence 2: ")
+output.write(str(gap2_count))
+output.write("\n")
+output.write("Alignment score: ")
+output.write(str(alignment_score))
+output.close
+
